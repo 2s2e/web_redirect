@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Web Redirect",
+    "version": "1.0",
+    "description": "Redirects particular link to a website",
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Redirect",
+        "default_icon": "icon.png"
+    }
+}
