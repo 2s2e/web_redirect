@@ -2,6 +2,7 @@ document.getElementById("save").onclick = function() {
     var toValue = document.getElementById("redirect_to").value;
     var fromValue = document.getElementById("redirect_from").value;
 
+    /*
     // const toData = chrome.storage.sync.get(["toKey"]).then((result) => {
     //     console.log("Value currently is " + result.key);
     //   });
@@ -20,6 +21,7 @@ document.getElementById("save").onclick = function() {
     // chrome.storage.sync.set({ fromKey : fromValue }).then(() => {
     //     console.log("fromValue is set to " + fromValue);
     // });
+    */
     console.log(localStorage["toKey"]);
     console.log(localStorage["fromKey"]);
 
