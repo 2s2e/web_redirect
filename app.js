@@ -1,3 +1,23 @@
+window.onload = async function() {
+    console.log("start!");
+    
+    //get the values from chrome storage, note the await keyword, this is because the get function is asynchronous
+    const redirect_to_obj = await chrome.storage.sync.get("toKey");
+    const redirect_from_obj = await chrome.storage.sync.get("fromKey");
+
+    //for some reason, the key of the the object is toKey, redirect_to and redirect_from store the text values
+    var redirect_to = redirect_to_obj.toKey;
+    var redirect_from = redirect_from_obj.fromKey;
+
+    //on startup, make it so that the text boxes are filled with the values from chrome storage
+    const toText = document.getElementById("redirect_to");
+    const fromText = document.getElementById("redirect_from");
+
+    toText.value = redirect_to;
+    fromText.value = redirect_from;
+
+}
+
 document.getElementById("save").onclick = function() {
     const toValue = document.getElementById("redirect_to").value;
     const fromValue = document.getElementById("redirect_from").value;
@@ -27,7 +47,7 @@ document.getElementById("save").onclick = function() {
 
 
 
-    
+
     //data is an object: {toKey : "toValue"}
     chrome.storage.sync.get("toKey", function(data) {
         //gets the value of the key "toKey" in the object
