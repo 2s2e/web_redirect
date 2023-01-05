@@ -26,6 +26,8 @@ document.getElementById("save").onclick = function() {
     // console.log(localStorage["fromKey"]);
 
 
+
+    
     //data is an object: {toKey : "toValue"}
     chrome.storage.sync.get("toKey", function(data) {
         //gets the value of the key "toKey" in the object
