@@ -12,9 +12,16 @@ window.onload = async function() {
 }
 
 document.getElementById("save").onclick = function() {
-    const toValue = document.getElementById("redirect_to").value;
-    const fromKey = document.getElementById("redirect_from").value;
+    var toValue = document.getElementById("redirect_to").value;
+    var fromKey = document.getElementById("redirect_from").value;
+
+    if(toValue.includes("https://")) {
+        toValue = toValue.replace("https://", "");
+    } 
+
     chrome.storage.sync.set({ [fromKey] : toValue }, function() {});
+    
+
     /*
     // const toData = chrome.storage.sync.get(["toKey"]).then((result) => {
     //     console.log("Value currently is " + result.key);

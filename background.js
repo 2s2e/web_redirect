@@ -8,27 +8,20 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) { // l
         const all = await chrome.storage.sync.get();
         for (const [key, val] of Object.entries(all)) {
 
-        const keys = key;
-        const vals = val;
-        //make it so that redirect_to accepts both urls with https and without https
-        if(vals.includes("https://")) {
-            vals = vals.replace("https://", "");
-        }   
+            const keys = key;
+            const vals = val;
 
-        //console.log(redirect_to);
-        //console.log(redirect_from);
-
-        //if the url contains reddit.com
-        if (tab.url.includes(keys)) {
-            chrome.tabs.query({ // change the tab url
-                currentWindow: true,
-                active: true
-            }, function (tab) {
-                chrome.tabs.update(tab.id, {
-                    url: "https://" + vals 
+            if (tab.url.includes(keys)) {
+                chrome.tabs.query({ // change the tab url
+                    currentWindow: true,
+                    active: true
+                }, function (tab) {
+                    chrome.tabs.update(tab.id, {
+                        url: "https://" + vals 
+                    });
                 });
-            });
+            }
+            
         }
-    }
     }
 })
