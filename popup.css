@@ -1,3 +1,8 @@
+@keyframes riseIn {
+    from {transform: translateY(-200px);}
+    to {transform: translateY(0);}
+}
+
 body {
     min-width: 300px;
     min-height: 200px;
@@ -5,4 +10,8 @@ body {
 
 p {
     color: blue;
+}
+
+.rise {
+    animation: riseIn 1s ease forwards;
 }
