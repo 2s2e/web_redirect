@@ -6,12 +6,26 @@
 body {
     min-width: 300px;
     min-height: 200px;
+    background-color: #f0f0f0;
 }
 
 p {
-    color: blue;
+    font-family: Tahoma, sans-serif;
 }
 
 .rise {
     animation: riseIn 1s ease forwards;
 }
+
+.scroller {
+    overflow: auto;
+    height: 50%;
+    scrollbar-width: thin;
+    scrollbar-color: lightgreen darkgreen;
+    width: 90%;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 12px;
+}
+

@@ -24,7 +24,7 @@ document.getElementById("save").onclick = function() {
 }
 
 document.getElementById("clear").onclick = function(){
-    chrome.storage.sync.set({});
+    chrome.storage.sync.remove(["redirects"]);
 }
 
 async function addPair(toUrl, fromUrl) {
@@ -44,7 +44,13 @@ async function addPair(toUrl, fromUrl) {
         return "Error: Redirecting from a page with less than 3 characters.";
     }
 
-    console.log(chrome.storage.sync.get());
+    console.log("Chrome.storage.sync.get():")
+    console.log(await chrome.storage.sync.get());
+    console.log("Chrome.storage.sync.get(\"redirects\"):")
+    console.log(await chrome.storage.sync.get(["redirects"]));
+    console.log("Chrome.storage.sync.get(\"redirects\").redirects:")
+    console.log(await chrome.storage.sync.get("redirects").redirects);
+
     chrome.storage.sync.get(["redirects"], function(result) {
         
         if(result.redirects == null) {
