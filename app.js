@@ -19,12 +19,42 @@ document.getElementById("save").onclick = function() {
         toValue = toValue.replace("https://", "");
     } 
 
-    chrome.storage.sync.set({ [fromKey] : toValue }, function() {});
-    
+    var message = addPair(toValue, fromKey);
 
 }
 
 document.getElementById("clear").onclick = function(){
-    chrome.storage.sync.clear();
+    chrome.storage.sync.set({});
 }
 
+async function addPair(toUrl, fromUrl) {
+    if(toUrl.includes("https://")) {
+        toUrl = toUrl.replace("https://", "");
+    } 
+
+    if(toUrl.includes(fromUrl)) {
+        return "Error: Redirecting to the same page.";
+    }
+
+    if(toUrl.length == 0 || fromUrl.length == 0) {
+        return "Error: Empty field.";
+    }
+
+    if(fromUrl.length < 3) {
+        return "Error: Redirecting from a page with less than 3 characters.";
+    }
+
+    console.log(chrome.storage.sync.get());
+    chrome.storage.sync.get(["redirects"], function(result) {
+        
+        if(result.redirects == null) {
+            result.redirects = {};
+        }
+
+        result.redirects[fromUrl] = toUrl;
+
+        chrome.storage.sync.set({redirects : result.redirects});
+    });
+
+    return "Success: Redirect added.";
+}
