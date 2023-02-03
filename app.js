@@ -11,22 +11,6 @@ window.onload = async function() {
 
 }
 
-document.getElementById("save").onclick = function() {
-    var toValue = document.getElementById("redirect_to").value;
-    var fromKey = document.getElementById("redirect_from").value;
-
-    if(toValue.includes("https://")) {
-        toValue = toValue.replace("https://", "");
-    } 
-
-    var message = addPair(toValue, fromKey);
-
-}
-
-document.getElementById("clear").onclick = function(){
-    chrome.storage.sync.remove(["redirects"]);
-}
-
 async function addPair(toUrl, fromUrl) {
     if(toUrl.includes("https://")) {
         toUrl = toUrl.replace("https://", "");
@@ -42,6 +26,15 @@ async function addPair(toUrl, fromUrl) {
 
     if(fromUrl.length < 3) {
         return "Error: Redirecting from a page with less than 3 characters.";
+    }
+
+    var storageItems = await chrome.storage.sync.get(["redirects"]);
+    var all = storageItems.redirects;
+
+    for (const [key, val] of Object.entries(all)) { 
+        if(toUrl.includes(key)) {
+            return "Error: Redirecting to or from a page that is already being redirected.";
+        }
     }
 
     console.log("Chrome.storage.sync.get():")
@@ -64,3 +57,29 @@ async function addPair(toUrl, fromUrl) {
 
     return "Success: Redirect added.";
 }
+
+document.getElementById("save").onclick = async function() {
+    var toValue = document.getElementById("redirect_to").value;
+    var fromKey = document.getElementById("redirect_from").value;
+
+    if(toValue.includes("https://")) {
+        toValue = toValue.replace("https://", "");
+    } 
+
+    var message = await addPair(toValue, fromKey);
+
+    if(message.includes("Error")) {
+        document.getElementById("status").innerHTML = message;
+        document.querySelector("#status").style.color = "red";
+    }
+    else {
+        document.getElementById("status").innerHTML = message;
+        document.querySelector("#status").style.color = "green";
+    }
+
+}
+
+document.getElementById("clear").onclick = function(){
+    chrome.storage.sync.remove(["redirects"]);
+}
+
