@@ -12,7 +12,9 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) { // l
         console.log(all);
         console.log(typeOfAll);
         
-        
+        if(all == null) {
+            return;
+        }
 
         for (const [key, val] of Object.entries(all)) {
 

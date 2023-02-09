@@ -31,18 +31,20 @@ async function addPair(toUrl, fromUrl) {
     var storageItems = await chrome.storage.sync.get(["redirects"]);
     var all = storageItems.redirects;
 
-    for (const [key, val] of Object.entries(all)) { 
-        if(toUrl.includes(key)) {
-            return "Error: Redirecting to or from a page that is already being redirected.";
-        }
+    if(all != null) {
+        for (const [key, val] of Object.entries(all)) { 
+            if(toUrl.includes(key)) {
+                return "Error: Redirecting to or from a page that is already being redirected.";
+            }
+        }    
     }
-
-    console.log("Chrome.storage.sync.get():")
-    console.log(await chrome.storage.sync.get());
-    console.log("Chrome.storage.sync.get(\"redirects\"):")
-    console.log(await chrome.storage.sync.get(["redirects"]));
-    console.log("Chrome.storage.sync.get(\"redirects\").redirects:")
-    console.log(await chrome.storage.sync.get("redirects").redirects);
+   
+    // console.log("Chrome.storage.sync.get():")
+    // console.log(await chrome.storage.sync.get());
+    // console.log("Chrome.storage.sync.get(\"redirects\"):")
+    // console.log(await chrome.storage.sync.get(["redirects"]));
+    // console.log("Chrome.storage.sync.get(\"redirects\").redirects:")
+    // console.log(await chrome.storage.sync.get("redirects").redirects);
 
     chrome.storage.sync.get(["redirects"], function(result) {
         
