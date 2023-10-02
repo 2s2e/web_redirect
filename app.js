@@ -8,7 +8,6 @@ window.onload = async function() {
     var redirect_to = redirect_to_obj.toKey;
     var redirect_from = redirect_from_obj.fromKey;*/
 
-
 }
 
 async function addPair(toUrl, fromUrl) {
@@ -85,3 +84,18 @@ document.getElementById("clear").onclick = function(){
     chrome.storage.sync.remove(["redirects"]);
 }
 
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for (var key in changes) {
+      var storageChange = changes[key];
+      console.log('Storage key "%s" in namespace "%s" changed. ' +
+                  'Old value was "%s", new value is "%s".',
+                  key,
+                  namespace,
+                  storageChange.oldValue,
+                  storageChange.newValue);
+    }
+    console.log(changes.redirects.newValue)
+    console.log(changes)
+    console.log(namespace)
+    
+});
