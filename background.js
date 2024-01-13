@@ -34,3 +34,4 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) { // l
         }
     }
 })
+

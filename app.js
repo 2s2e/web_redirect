@@ -1,3 +1,4 @@
+
 window.onload = async function() {
     console.log("start!");
     /*//get the values from chrome storage, note the await keyword, this is because the get function is asynchronous
@@ -73,15 +74,16 @@ document.getElementById("save").onclick = async function() {
         document.getElementById("status").innerHTML = message;
         document.querySelector("#status").style.color = "red";
     }
-    else {
+    else { //test
         document.getElementById("status").innerHTML = message;
         document.querySelector("#status").style.color = "green";
     }
-
+    generateTable();
 }
 
 document.getElementById("clear").onclick = function(){
-    chrome.storage.sync.remove(["redirects"]);
+    chrome.storage.sync.set({redirects : {}});
+    generateTable();
 }
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {

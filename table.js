@@ -27,8 +27,6 @@ async function generateTable() {
     const values = Object.values(all);
     //create the table contents
     for (var i = 0; i < keys.length; i++) {
-        
-
         let row = document.createElement("tr");
 
         let from = document.createElement("td");
@@ -50,5 +48,3 @@ async function generateTable() {
 
     tableContainer.appendChild(table);
 }
-
-generateTable();
